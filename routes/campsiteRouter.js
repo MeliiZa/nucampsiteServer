@@ -1,14 +1,14 @@
 // This is an Express router for campsites and campsitesId. This module will contain the code for handling the REST API endpoints for campsites and campsites/campsiteId
-​
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const Campsite = require('../models/campsite');             // Import campsite.js file
-​
+
 // Create a new Express router by calling express.Router fxn and assigning it to a variable
 const campsiteRouter = express.Router();
-​
+
 campsiteRouter.use(bodyParser.json());
-​
+
 // Add support for 4 endpoints for requests made to /campsites (PLURAL) path on MongoDB server
 campsiteRouter.route('/')                                   // The path isn't '/campsites' like you'd expect bc it's defined in server.js on campsiteRouter line - it's located in server.js so server knows where to go                                                    
 .get((req, res, next) => {                                  // If we get a GET request to this endpoint, it means the HTTP Client (ex web browser) is asking to send back data for all of the camnpsites, so we will then call the Campsite.find method to pull all campsites docs and do the following code...
@@ -43,7 +43,7 @@ campsiteRouter.route('/')                                   // The path isn't '/
     })
     .catch(err => next(err));
 });
-​
+
 // Add support for 4 endpoints for requests made to /campsites/:campsiteId (SINGULAR) path on MongoDB server
 campsiteRouter.route('/:campsiteId')
 .get((req, res, next) => {
@@ -79,7 +79,7 @@ campsiteRouter.route('/:campsiteId')
     })
     .catch(err => next(err));
 });
-​
+
 // Add support for 4 endpoints for requests made to /campsites/:campsiteId/comments (PLURAL) path on MongoDB server
 campsiteRouter.route('/:campsiteId/comments')
 .get((req, res, next) => {
@@ -143,7 +143,7 @@ campsiteRouter.route('/:campsiteId/comments')
     })
     .catch(err => next(err));
 });
-​
+
 // Add support for 4 endpoints for requests made to /campsites/:campsiteId/comments/:commentId (SINGULAR) path on MongoDB server
 campsiteRouter
 .route('/:campsiteId/comments/:commentId')
@@ -223,6 +223,6 @@ campsiteRouter
     })
     .catch(err => next(err));
 });
-​
+
 // Export router so it can be used elsewhere in app
 module.exports = campsiteRouter;
