@@ -10,7 +10,8 @@ const campsiteRouter = express.Router();
 campsiteRouter.use(bodyParser.json());
 
 // Add support for 4 endpoints for requests made to /campsites (PLURAL) path on MongoDB server
-campsiteRouter.route('/')                                   // The path isn't '/campsites' like you'd expect bc it's defined in server.js on campsiteRouter line - it's located in server.js so server knows where to go                                                    
+campsiteRouter
+.route('/')                                                 // The path isn't '/campsites' like you'd expect bc it's defined in server.js on campsiteRouter line - it's located in server.js so server knows where to go                                                    
 .get((req, res, next) => {                                  // If we get a GET request to this endpoint, it means the HTTP Client (ex web browser) is asking to send back data for all of the camnpsites, so we will then call the Campsite.find method to pull all campsites docs and do the following code...
     Campsite.find()                                         // Campsite.find is a static method avail via Campsite Model (Campsite) and Mongoose (.find) that will query DB for all docs that were instantiated using Campsite Model
     .then(campsites => {                                    // Use the .then method to access the result from the .find method as "campsites"; once we have that result, we'll set the  following HTTP response settings: 
@@ -45,7 +46,8 @@ campsiteRouter.route('/')                                   // The path isn't '/
 });
 
 // Add support for 4 endpoints for requests made to /campsites/:campsiteId (SINGULAR) path on MongoDB server
-campsiteRouter.route('/:campsiteId')
+campsiteRouter
+.route('/:campsiteId')
 .get((req, res, next) => {
     Campsite.findById(req.params.campsiteId)                            // .findById method from Mongoose; req.params.campsiteId parses out the campsite ID from the request that was sent from HTTP client (ex. whatever ID user entered into website)
     .then(campsite => {
@@ -81,7 +83,8 @@ campsiteRouter.route('/:campsiteId')
 });
 
 // Add support for 4 endpoints for requests made to /campsites/:campsiteId/comments (PLURAL) path on MongoDB server
-campsiteRouter.route('/:campsiteId/comments')
+campsiteRouter
+.route('/:campsiteId/comments')
 .get((req, res, next) => {
     Campsite.findById(req.params.campsiteId)
     .then(campsite => {
@@ -224,5 +227,5 @@ campsiteRouter
     .catch(err => next(err));
 });
 
-// Export router so it can be used elsewhere in app
+// Export all the above routes through (everything at /campsites route) router so it can be used elsewhere in app
 module.exports = campsiteRouter;
